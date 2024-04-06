@@ -8,3 +8,13 @@
 @using Microsoft.JSInterop
 @using Prepaid.Client
 @using Prepaid.Client.Layout
+@using Prepaid.Client.Domain.ViewModels
+@using Prepaid.Client.Services.Interfaces
+
+
+@* Navigation  *@
+@inject NavigationManager NavManager
+
+@inject IClipboardService ClipboardService
+
+@using Prepaid.Client.Pages.Dialogs

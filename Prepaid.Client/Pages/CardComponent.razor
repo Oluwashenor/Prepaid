@@ -1,0 +1,63 @@
+﻿<div class="bg-[#3A3A41] shadow-md h-[220px] w-[48%] bg-cover bg-no-repeat rounded-2xl space-y-3 bg-[url('/images/pattern-tree.svg')]">
+    <div class="flex flex-col justify-between py-2 px-2 h-full">
+        @* Row 1 *@
+        <div class="px-3 py-2 flex justify-between items-center">
+            <div class="flex justify-between items-center">
+                <span>
+                    <img class="h-5" src="/lib/m-icons/wifi.svg" alt="Menu" />
+                </span>
+            </div>
+            <div class="flex space-x-3 justify-between items-center">
+                <span>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="relative w-10 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-100 dark:peer-focus:ring-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
+                    </label>
+                </span>
+                <span @onclick="OpenDialog">
+                    <img class="h-5" src="/lib/m-icons/menu_white.svg" alt="Menu" />
+                </span>
+            </div>
+
+        </div>
+        @* Row 2 *@
+        <div class="px-2 py-2 flex justify-between items-center">
+            <CardNumberComponent DarkIcon=false HideCardNumberEvent="HideCardNumberEvent" CardNumber="@CardNumber" ShowImage=false NumberHidden="NumberHidden" />
+        </div>
+        @* Row 3 *@
+        <div class="px-2 py-2 flex justify-between items-center">
+            <div class="flex justify-between space-x-6">
+                <div class="flex flex-col">
+                    <span class="opacity-80">Card Holder</span>
+                    <span>@Card.Owner</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="opacity-80">Expires</span>
+                    <span>@Card.Expires.ToString("MM/yy")</span>
+                </div>
+            </div>
+            <div>
+                <img class="h-10" src="/images/mastercard.png" alt="Alternate Text" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<CustomModal @ref=customDialog></CustomModal>
+
+
+@code {
+    [Parameter] public CardInfo Card { get; set; } = new();
+    [Parameter] public EventCallback<bool> HideCardNumberEvent { get; set; }
+    public string CardHashed { get; set; } = "**** **** **** 7852";
+    [Parameter] public string? CardNumber { get; set; }
+    [Parameter] public bool NumberHidden { get; set; } = false;
+
+    CustomModal? customDialog;
+
+
+    void OpenDialog()
+    {
+        customDialog?.OpenDialog();
+    }
+}

@@ -1,0 +1,27 @@
+﻿<div id="dialog"
+     class="fixed left-0 top-0 bg-black bg-opacity-50 w-screen h-screen z-50">
+    <div class="bg-white rounded-md shadow-lg mx-auto mt-28 w-[22%] max-h-[80%]">
+        <div class="flex items-center justify-center py-4">
+            <div class="m-0 md:flex-col md:p-1 lg:p-3 xl:p-4 space-y-6">
+               <p class="font-bold">Activate Card</p>
+                <div class="flex ">
+                    <input type="text" disabled
+                           class="w-full focus:outline-none py-3 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
+                           placeholder="@CardNumber" />
+                </div>
+                <div class="flex">
+                    <input type="text"
+                           class="w-full focus:outline-none py-3 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
+                           placeholder="Enter your BVN" />
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" class="w-full h-[2.5rem] mt-3 rounded-[8px] text-red-500 border-[1px] border-red-500 font-bold text-xs">Cancel</button>
+                    <button type="button" class="w-full h-[2.5rem] mt-3 rounded-[8px] text-white font-bold text-xs" style="background-color:#4CAF50;">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter] public string? CardNumber { get; set; }
+}

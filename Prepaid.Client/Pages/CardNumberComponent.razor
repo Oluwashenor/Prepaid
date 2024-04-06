@@ -1,0 +1,34 @@
+﻿<div class="flex">
+    @if(ShowImage){
+    <div class="px-2 mr-2">
+        <img class="h-7" src="/images/mastercard.png" alt="Card Type" />
+    </div>
+    }
+    <span class="font-bold text-lg">@CardNumber</span>
+</div>
+<div>
+    <span @onclick="HideCard">
+        @* @(DarkIcon ? "visibility_white.svg" : "visibility.svg") *@
+        @if(!NumberHidden){
+            <img class="@(DarkIcon ? "opacity-60" : "opacity-40")" src="/lib/m-icons/@(DarkIcon ? "visibility.svg" : "visibility_white.svg")" alt="Menu" />
+        }
+        else
+        {
+            <img class="@(DarkIcon ? "opacity-60" : "opacity-40")" src="/lib/m-icons/@(DarkIcon ? "visibility_off.svg" : "visibility_off_white.svg")" alt="Menu" />
+        }
+    </span>
+</div>
+
+@code {
+    [Parameter] public string? CardNumber { get; set; }
+    [Parameter] public bool ShowImage { get; set; }
+    [Parameter] public bool DarkIcon { get; set; }
+    [Parameter] public EventCallback<bool> HideCardNumberEvent { get; set; }
+    [Parameter] public bool NumberHidden { get; set; }
+
+    private async void HideCard()
+    {
+        NumberHidden = !NumberHidden;
+        await HideCardNumberEvent.InvokeAsync(NumberHidden);
+    }
+}

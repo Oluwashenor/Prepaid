@@ -1,5 +1,5 @@
 ﻿
-@page "/login"
+@page "/"
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -7,32 +7,29 @@
 <body>
     <!-- Global Container -->
     <div class="flex items-center justify-center min-h-screen">
-        <div class="flex">
             <!-- Card Container -->
-            <div class="relative flex flex-col m-4 h-100 justify-center bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0 md:m-0">
+        <div class="flex relative h-100 w-auto justify-center bg-white shadow-xl rounded-2xl">
                 <div class="absolute -top-7 flex items-center justify-center text-white font-bold w-[90%] h-[4rem] rounded-xl" style="background-color:#FCB713;">
                     Sign in
                 </div>
-                
-               
-                <div class="w-auto mt-2 md:px-1 pt-16 pb-5 ">
+            <div class="mt-2 md:px-6 pt-16 pb-5 border-pink-500">
                     <!-- Content Container -->
-                    <div class="flex flex-col mx-3 w-80 space-y-4">
+                <div class="flex flex-col mx-1 w-[300px] space-y-4 border-yellow-500">
                         <div class="flex">
                             <input type="text"
-                                   class="w-full py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
+                               class="w-full focus:outline-none py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
                                    placeholder="Client ID" />
                         </div>
 
                         <div class="flex">
                             <input type="text"
-                                   class="w-full py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
+                               class="w-full focus:outline-none py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
                                    placeholder="Phone Number" />
                         </div>
 
                         <div class="flex">
                             <input type="text"
-                                   class="w-full py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
+                               class="w-full focus:outline-none py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
                                    placeholder="Password" />
                         </div>
                         <div class="flex space-x-2 items-center">
@@ -46,7 +43,7 @@
 
 
                         <div>
-                            <button class="w-full h-[2.5rem] mt-3 rounded-[8px] text-white font-bold" style="background-color:#FCB713;">SIGN IN</button>
+                            <button type="button" @onclick="HandleLogin" class="w-full h-[2.5rem] mt-3 rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">SIGN IN</button>
                         </div>
                         
                         <!-- Bottom Content -->
@@ -60,12 +57,13 @@
                     </div>
                 </div>
             </div>
-
-        </div>
     </div>
 </body>
 
 
 @code {
-
+    private void HandleLogin()
+    {
+        NavManager.NavigateTo("/dashboard", forceLoad: true);
+    }
 }

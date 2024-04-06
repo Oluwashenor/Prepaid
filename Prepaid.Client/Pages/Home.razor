@@ -1,7 +1,105 @@
-﻿@page "/"
+﻿@page "/dashboard"
 
-<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<HeaderComponent />
 
-Welcome to your new app.
+@* Central Top Region *@
+<div class="flex mt-10 space-x-6">
+    @* Left card Row *@
+    <div class="flex flex-col w-[68%]">
+        @* Top Row *@
+        <div class="flex justify-between">
+            @* Card *@
+            <CardComponent CardNumber="@CardNumber" Card="@Card" HideCardNumberEvent="HideCard" NumberHidden=@CardNumberHidden />
+            @* Card Wallet *@
+            <CardBalanceComponent Balance="@Card.Balance"/>
+            @* Bank Details *@
+            <BankDetailsComponent BankDetail="BankDetail"/>
+        </div>
+        @* Bottom Row *@
+        <div class="flex flex-col w-auto rounded-2xl shadow-md py-2 px-3 mt-6">
+            <div class="flex justify-between">
+                <span>Payment Method</span>
+                <button class="border-2 py-2 px-4 rounded-md bg-[#242426] text-white">ADD NEW CARD</button>
+            </div>
+            <div class="w-[50%] border-[1px] py-4 px-2 rounded-lg flex justify-between">
+                <CardNumberComponent DarkIcon=true NumberHidden="CardNumberHidden" CardNumber="@CardNumber" HideCardNumberEvent="HideCard" ShowImage=true />
+            </div>
+        </div>
+    </div>
+
+
+    @* Right card Row *@
+    <div class="flex flex-col w-[33%] h-auto rounded-2xl shadow-md py-2 px-3">
+        <div class="flex justify-between">
+            <span class="text-[#344767]">Transaction Disputes</span>
+            <button class="border-[1px] font-bold py-1 px-3.5 rounded-lg border-[#E91E63] text-[#E91E63]">View All</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    public CardInfo Card { get; set; } = new();
+    public BankDetail BankDetail { get; set; } = new();
+    public string CardHashed { get; set; } = "**** **** **** 7852";
+    public string? CardNumber { get; set; }
+    public bool CardNumberHidden { get; set; } = true;
+    protected override void OnInitialized()
+    {
+        Card = new()
+            {
+                Balance = 2205002,
+                CardNumber = "4521 5234 6234 7852",
+                CardType = "MasterCard",
+                Expires = DateTime.Now.AddYears(1),
+                Owner = "Oliver Johnson"
+            };
+        CardNumber = Card.CardNumber;
+        BankDetail = new()
+        {
+             AccountName = Card.Owner,
+             AccountNumber = "10129203033",
+             Bank = "Providus"
+        };
+    }
+
+    private void HandleCardNumberHashing(bool hash)
+    {
+        var digits = Card?.CardNumber;
+        if (string.IsNullOrEmpty(digits)) return;
+        if (hash)
+        {
+            string lastFour = digits.Substring(Math.Max(0, digits.Length - 4));
+            CardNumber = $"**** **** **** {lastFour}";
+        }
+        else
+        {
+            CardNumber = Card?.CardNumber;
+        }
+
+    }
+
+    private void HandleLogin()
+    {
+        NavManager.NavigateTo("/dashboard", forceLoad: true);
+    }
+
+    private void ActivateCard()
+    {
+        NavManager.NavigateTo("/dashboard", forceLoad: true);
+    }
+
+    private async void HideCard(bool NumberHidden)
+    {
+        // CardNumberHidden = NumberHidden;
+        // if (!NumberHidden)
+        // {
+        //     CardNumber = Card.CardNumber;
+        // }
+        // else
+        // {
+        //     CardNumber = CardHashed;
+        // }
+    }
+}
