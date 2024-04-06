@@ -38,11 +38,14 @@
     </div>
 </div>
 
+@* Transaction History *@
+
+<TransactionHistory/>
+
 
 @code {
     public CardInfo Card { get; set; } = new();
     public BankDetail BankDetail { get; set; } = new();
-    public string CardHashed { get; set; } = "**** **** **** 7852";
     public string? CardNumber { get; set; }
     public bool CardNumberHidden { get; set; } = true;
     protected override void OnInitialized()
@@ -62,22 +65,7 @@
              AccountNumber = "10129203033",
              Bank = "Providus"
         };
-    }
-
-    private void HandleCardNumberHashing(bool hash)
-    {
-        var digits = Card?.CardNumber;
-        if (string.IsNullOrEmpty(digits)) return;
-        if (hash)
-        {
-            string lastFour = digits.Substring(Math.Max(0, digits.Length - 4));
-            CardNumber = $"**** **** **** {lastFour}";
-        }
-        else
-        {
-            CardNumber = Card?.CardNumber;
-        }
-
+        HideCard(true);
     }
 
     private void HandleLogin()
@@ -90,16 +78,19 @@
         NavManager.NavigateTo("/dashboard", forceLoad: true);
     }
 
-    private async void HideCard(bool NumberHidden)
+    private async void HideCard(bool hash)
     {
-        // CardNumberHidden = NumberHidden;
-        // if (!NumberHidden)
-        // {
-        //     CardNumber = Card.CardNumber;
-        // }
-        // else
-        // {
-        //     CardNumber = CardHashed;
-        // }
+        var digits = Card?.CardNumber;
+        if (string.IsNullOrEmpty(digits)) return;
+        if (hash)
+        {
+            string lastFour = digits.Substring(Math.Max(0, digits.Length - 4));
+            CardNumber = $"**** **** **** {lastFour}";
+        }
+        else
+        {
+            CardNumber = Card?.CardNumber;
+        }
+        CardNumberHidden = hash;
     }
 }
