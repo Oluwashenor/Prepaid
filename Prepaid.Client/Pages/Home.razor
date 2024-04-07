@@ -4,14 +4,15 @@
 <HeaderComponent />
 
 @* Central Top Region *@
-<div class="flex flex-col lg:flex-row mt-10 space-x-6 items-center">
+<div class="flex flex-col lg:flex-row mt-10 lg:space-x-6 lg:items-start">
     @* Left card Row *@
-    <div class="flex flex-col w-full lg:w-[68%]">
+    <div class="flex flex-col w-full lg:w-[64%] lg:justify-between">
         @* Top Row *@
-        <div class="flex flex-col lg:flex-row justify-between">
+        <div class="flex flex-col lg:flex-row lg:justify-between">
             @* Card *@
             <CardComponent CardNumber="@CardNumber" Card="@Card" HideCardNumberEvent="HideCard" NumberHidden=@CardNumberHidden />
-            <div class="flex flex-row mt-4 lg:mt-0">
+            @* Bank and Card Details *@
+            <div class="flex flex-row justify-between lg:w-[48%] mt-6 md:mt-4 lg:mt-0">
                 @* Card Wallet *@
                 <CardBalanceComponent Balance="@Card.Balance" />
                 @* Bank Details *@
@@ -19,35 +20,29 @@
             </div>
         </div>
         @* Bottom Row *@
-        <div class="flex flex-col w-auto rounded-2xl shadow-md py-2 px-3 mt-6">
-            <div class="flex justify-between">
+        <div class="flex flex-col w-auto rounded-2xl shadow-md py-3 px-3 mt-6">
+            <div class="flex justify-between items-center my-2">
                 <span>Payment Method</span>
-                <button class="flex border-2 py-2 px-3 rounded-lg bg-[#242426] text-white space-x-1 items-center">
+                <button class="flex border-2 py-2 px-3 rounded-lg bg-[#242426] text-white space-x-1 items-center shadow-md hover:shadow-xl">
                     <span>
                         <img class="h-4" src="/lib/m-icons/add_white.svg" alt="Menu" />
                     </span>
                     <span>ADD NEW CARD</span>
-                    </button>
+                </button>
             </div>
-            <div class="w-[50%] border-[1px] py-4 px-2 rounded-lg flex justify-between">
+            <div class="md:w-[50%] lg-w-full border-[1px] py-4 px-2 rounded-lg flex justify-between">
                 <CardNumberComponent DarkIcon=true NumberHidden="CardNumberHidden" CardNumber="@CardNumber" HideCardNumberEvent="HideCard" ShowImage=true />
             </div>
-        </div>
+        </div> 
     </div>
 
-
-    @* Right card Row *@
-    <div class="flex flex-col w-[95%] lg:w-[33%] h-auto rounded-2xl shadow-md py-2 px-3">
-        <div class="flex justify-between">
-            <span class="text-[#344767]">Transaction Disputes</span>
-            <button class="border-[1px] font-bold py-1 px-3.5 rounded-lg border-[#E91E63] text-[#E91E63]">View All</button>
-        </div>
-    </div>
+    @* Right card Row (Transaction Dispute) *@
+    <TransactionDisputes/>
 </div>
 
 @* Transaction History *@
 
-<TransactionHistory/>
+<TransactionHistory />
 
 
 @code {
@@ -67,11 +62,11 @@
             };
         CardNumber = Card.CardNumber;
         BankDetail = new()
-        {
-             AccountName = Card.Owner,
-             AccountNumber = "10129203033",
-             Bank = "Providus"
-        };
+            {
+                AccountName = Card.Owner,
+                AccountNumber = "10129203033",
+                Bank = "Providus"
+            };
         HideCard(true);
     }
 
