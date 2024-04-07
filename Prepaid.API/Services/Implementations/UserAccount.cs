@@ -18,7 +18,7 @@ namespace Prepaid.API.Services.Implementations
         public async Task<GeneralResponse> SignInAsync(LoginDTO user)
         {
             if (user == null) return new GeneralResponse(false, "Model is Empty");
-            var appUser = await context.Users.FirstOrDefaultAsync(_ => _.Email!.ToLower()!.Equals(user.Email!.ToLower()));
+            var appUser = await context.Users.FirstOrDefaultAsync(_ => _.PhoneNumber!.Trim()!.Equals(user.Phone!.Trim()));
             if (appUser is null) return new GeneralResponse(false, "User not found");
 
             if (!BCrypt.Net.BCrypt.Verify(user.Password, appUser.Password))
@@ -34,14 +34,18 @@ namespace Prepaid.API.Services.Implementations
         public async Task<GeneralResponse> CreateAsync(RegisterDTO user)
         {
             if (user is null) return new GeneralResponse(false, "Model is Empty");
-            var checkUser = await context.Users.FirstOrDefaultAsync(_ => _.Email!.ToLower()!.Equals(user.Email!.ToLower()));
-            if (checkUser != null) return new GeneralResponse(false, "User registered Already");
+            var checkEmail = await context.Users.FirstOrDefaultAsync(_ => _.Email!.ToLower()!.Equals(user.Email!.ToLower()));
+            if (checkEmail != null) return new GeneralResponse(false, "User registered Already");
+            var checkPhone = await context.Users.FirstOrDefaultAsync(_ => _.PhoneNumber!.Trim()!.Equals(user.Phone!.Trim()));
+            if (checkPhone != null) return new GeneralResponse(false, "User registered Already");
             // Save User
             var appUser = await AddToDatabase(new User()
             {
                 Fullname = user.FullName,
                 Email = user.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(user.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
+                ClientId = user.ClientId,
+                PhoneNumber = user.Phone
             });
             return new GeneralResponse(true, "Account Created");
         }

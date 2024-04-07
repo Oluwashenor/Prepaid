@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Prepaid.API.Domain.DTOs
+namespace Prepaid.Client.Domain.APIModels
 {
+    public class AuthModels
+    {
+    }
+
     public class LoginDTO
     {
         [DataType(DataType.PhoneNumber)]

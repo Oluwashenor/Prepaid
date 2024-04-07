@@ -16,6 +16,8 @@ namespace Prepaid.API.Utilities
                 Email = "yen@gmail.com",
                 FullName = "Yen",
                 Password = "Password",
+                Phone = "09010010010",
+                ClientId = 100
             };
             await userManagement.CreateAsync(user);
             return;

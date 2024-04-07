@@ -11,7 +11,8 @@ namespace Prepaid.API.Controllers
     public class UserController(IUserAccount userAccount) : ControllerBase
     {
         [HttpPost("login")]
-        public async Task<IActionResult> SignInAsync(LoginDTO user)
+        [ProducesResponseType(typeof(GeneralResponse), 200)]
+        public async Task<IActionResult> SignInAsync([FromBody]LoginDTO user)
         {
             if (user == null) return BadRequest("Model is empty");
             var result = await userAccount.SignInAsync(user);

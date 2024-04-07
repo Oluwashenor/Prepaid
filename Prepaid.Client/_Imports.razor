@@ -11,6 +11,8 @@
 @using Prepaid.Client.Domain.ViewModels
 @using Prepaid.Client.Services.Interfaces
 
+@*API Client*@
+@inject IBackendHttpClient apiClient;
 
 @* Navigation  *@
 @inject NavigationManager NavManager
@@ -18,3 +20,6 @@
 @inject IClipboardService ClipboardService
 
 @using Prepaid.Client.Pages.Dialogs
+
+
+@using Prepaid.Client.Domain.APIModels
