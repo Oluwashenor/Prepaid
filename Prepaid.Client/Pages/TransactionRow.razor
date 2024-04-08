@@ -1,0 +1,44 @@
+﻿
+<tr class="flex justify-around py-4 border items-center hover:shadow-xl hover:z-50">
+    <td class="flex font-normal text-base w-full justify-center">@TransactionReference</td>
+    <td class="flex font-normal text-base w-full justify-center">NGN @Amount</td>
+    <td class="flex font-normal text-base w-full justify-center items-center space-x-2">
+        <span class="rounded-full p-2 @(Type == TransactionType.Income ? "bg-[#D9FFD8]" : "bg-[#FFE3E3]") bg-[#D9FFD8] text-[#68E365]">
+            <img class="h-5" src="/lib/m-icons/download_black.svg" alt="Menu" />
+        </span>
+        <span>@Type</span>
+    </td>
+    <td class="flex font-normal text-base w-full justify-center">
+        <span class="py-2.5 px-4 rounded-3xl @(Status == TransactionStatus.Approved ? "bg-[#D9FFD8] text-[#68E365]" : "bg-[#FFE3E3] text-[#FF4B4B]")">
+            @Status
+        </span>
+    </td>
+    <td class="flex font-normal text-base w-full justify-center">
+        <div class="relative">
+            <button type="button" @onclick="ToggleAction" class="py-3 w-[135px] rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">Actions</button>
+            <div class="@(ShowAction ? "flex flex-col" : "hidden") bg-white absolute py-1 px-1.5 w-full shadow-lg rounded-lg z-50">
+                <ul class="list-none space-y-1 text-base cursor-pointer">
+                    <li class="flex justify-center hover:bg-[#F5F5F5] py-3">View Details</li>
+                    <li class="flex justify-center hover:bg-[#F5F5F5] py-3">Log Dispute</li>
+                </ul>
+            </div>
+        </div>
+
+    </td>
+</tr>
+
+@code {
+
+    [Parameter] public string? Amount { get; set; } 
+    [Parameter] public string? TransactionReference { get; set; } 
+    [Parameter] public TransactionStatus Status { get; set; } 
+    [Parameter] public TransactionType Type { get; set; } 
+
+
+    private bool ShowAction { get; set; } = false;
+
+    private void ToggleAction()
+    {
+        ShowAction = !ShowAction;
+    }
+}

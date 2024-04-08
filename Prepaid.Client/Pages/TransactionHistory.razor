@@ -1,5 +1,5 @@
-﻿ <!-- Transaction Container -->
-<div class="flex mt-24 justify-center min-h-screen border-none">
+﻿<!-- Transaction Container -->
+<div style="font-family:Montserrat" class="flex mt-24 justify-center min-h-screen border-none">
     <!-- Card Container -->
     <div class="flex relative h-100 w-full justify-center bg-white shadow-xl rounded-2xl border-none">
         <div class="flex absolute -top-7 px-3 items-center justify-between text-white font-bold w-[96%] h-[6rem] rounded-2xl" style="background-color:#FCB713;">
@@ -12,51 +12,16 @@
                 <table class="w-full">
                     <thead class="">
                         <tr class="flex justify-around border border-gray-100 border-b-0 py-4">
-                            <th class="flex font-bold text-lg w-full justify-center">Reference Number</th>
-                            <th class="flex font-bold text-lg w-full justify-center">Amount</th>
-                            <th class="flex font-bold text-lg w-full justify-center">Type</th>
-                            <th class="flex font-bold text-lg w-full justify-center">Status</th>
-                            <th class="flex font-bold text-lg w-full justify-center"></th>
+                            <th class="flex font-bold text-sm w-full justify-center">Reference Number</th>
+                            <th class="flex font-bold text-sm w-full justify-center">Amount</th>
+                            <th class="flex font-bold text-sm w-full justify-center">Type</th>
+                            <th class="flex font-bold text-sm w-full justify-center">Status</th>
+                            <th class="flex font-bold text-sm w-full justify-center"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="flex justify-around py-4 border items-center hover:shadow-xl hover:z-50">
-                            <td class="flex font-thin text-lg w-full justify-center">TRef323112</td>
-                            <td class="flex font-thin text-lg w-full justify-center">NGN128,000.45</td>
-                            <td class="flex font-thin text-lg w-full justify-center items-center space-x-2">
-                                <span class="rounded-full p-2 bg-[#D9FFD8] text-[#68E365]">
-                                    <img class="h-5" src="/lib/m-icons/download_black.svg" alt="Menu" />
-                                </span>
-                                <span>Income</span>
-                            </td>
-                            <td class="flex font-thin text-lg w-full justify-center">
-                                <span class="py-2.5 px-4 rounded-3xl bg-[#D9FFD8] text-[#68E365]">
-                                    Approved
-                                </span>
-                            </td>
-                            <td class="flex font-thin text-lg w-full justify-center">
-                                <button type="button" class="py-3 px-[30px] rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">Actions</button>
-                            </td>
-                        </tr>
-                        <tr class="flex justify-around py-4 border items-center hover:shadow-xl hover:z-50">
-                            <td class="flex font-thin text-lg w-full justify-center">KELECHI</td>
-                            <td class="flex font-thin text-lg w-full justify-center">NGN228,000.45</td>
-                            <td class="flex font-thin text-lg w-full justify-center items-center space-x-2">
-                                <span class="rounded-full p-2 bg-[#D9FFD8] text-[#68E365]">
-                                    <img class="h-5" src="/lib/m-icons/download_black.svg" alt="Menu" />
-                                </span>
-                                <span>Outcome</span>
-                            </td>
-                            <td class="flex font-thin text-lg w-full justify-center">
-                                <span class="py-2.5 px-4 rounded-3xl bg-[#D9FFD8] text-[#68E365]">
-                                    Failed
-                                </span>
-                            </td>
-                            <td class="flex font-thin text-lg w-full justify-center">
-                                <button type="button" class="py-3 px-[30px] rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">Actions</button>
-                            </td>
-                        </tr>
-
+                        <TransactionRow TransactionReference="TRef323112" Amount="128,000.45" Type="TransactionType.Income" Status="TransactionStatus.Approved" />
+                        <TransactionRow TransactionReference="KELECHI" Amount="228,000.45" Type="TransactionType.Outcome" Status="TransactionStatus.Failed" />
                     </tbody>
                 </table>
             </div>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Prepaid.API.Data;
 using Prepaid.API.Domain.Models;
+using Prepaid.API.Extensions;
 using Prepaid.API.Services.Implementations;
 using Prepaid.API.Services.Interfaces;
 using Prepaid.API.Utilities;
@@ -51,6 +52,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,5 +78,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseExceptionHandler();
 app.Run();

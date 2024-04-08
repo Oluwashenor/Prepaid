@@ -20,7 +20,7 @@
                     <div class="flex w-auto">
                         <InputNumber @bind-Value="Input.ClientId" type="number"
                                class="w-full focus:outline-[#E91E63] py-2 px-2.5 border border-gray-500 rounded-md placeholder:font-sans placeholder:font-normal"
-                               placeholder="Client ID" />
+                               placeholder="Client ID"  />
                     </div>
 
                     <div class="flex">
@@ -42,9 +42,13 @@
                         </label>
                     </div>
                     <div>
-                        <button type="submit" @onclick="HandleLogin" class="w-full h-[2.5rem] mt-3 rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">SIGN IN</button>
+                        <button type="submit" class="w-full h-[2.5rem] mt-3 rounded-[8px] text-white font-bold text-xs" style="background-color:#FCB713;">SIGN IN</button>
                     </div>
-               
+                    @if (ErrorMessage != null)
+                    {
+                            <span class="text-red-600 text-xs">@ErrorMessage</span>
+                    }
+
                 <!-- Bottom Content -->
                 <div class="flex space-x-2 items-center justify-center">
                     <p class="py-6 text-sm font-thin text-center text-gray-400">
@@ -60,12 +64,13 @@
 </div>
 
 @code {
-
     [SupplyParameterFromForm]
-    private LoginDTO Input { get; set; } = new();
+    private LoginDTO? Input { get; set; } = new();
+    string? ErrorMessage;
 
     private async void HandleLogin()
     {
+        ErrorMessage = string.Empty;
         try
         {
             var signIn = await apiClient.LoginAsync(Input);
@@ -73,6 +78,8 @@
             {
                 NavManager.NavigateTo("/dashboard", forceLoad: true);
             }
+            ErrorMessage = signIn.Message;
+            StateHasChanged();
         }
         catch (Exception ex)
         {
