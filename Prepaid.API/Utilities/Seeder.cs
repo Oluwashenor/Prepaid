@@ -34,7 +34,7 @@ namespace Prepaid.API.Utilities
             {
                  CardNumber = "4521 5234 6234 7852",
                  CardType = "Master Card",
-                  UserId = user.Id,
+                 UserId = user.Id,
             };
             await cardManagement.CreateCard(card);
             return;

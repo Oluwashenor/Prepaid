@@ -35,9 +35,9 @@
                                placeholder="Password" />
                     </div>
                     <div class="flex space-x-2 items-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-100 dark:peer-focus:ring-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-500"></div>
+                        <label class="relative flex justify-between items-center group text-xl">
+                            <input type="checkbox" class="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md" />
+                            <span class="w-9 h-4 flex items-center flex-shrink-0 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-[#42424A] after:w-5 after:h-5 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1"></span>
                             <span class="ms-3 text-sm font-medium text-gray-400 dark:text-gray-400">Remember me</span>
                         </label>
                     </div>
@@ -78,7 +78,10 @@
             {
                 NavManager.NavigateTo("/dashboard", forceLoad: true);
             }
-            ErrorMessage = signIn.Message;
+            else
+            {
+                ErrorMessage = signIn.Message;
+            }
             StateHasChanged();
         }
         catch (Exception ex)
