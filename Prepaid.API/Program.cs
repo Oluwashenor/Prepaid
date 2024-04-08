@@ -21,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection") ?? throw new InvalidOperationException("Connection string not found")); });
 
 builder.Services.AddScoped<IUserAccount, UserAccount>();
+builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.Configure<JwtSection>(builder.Configuration.GetSection("JwtSection"));
 var jwtOptions = builder.Configuration.GetSection(nameof(JwtSection)).Get<JwtSection>();
 
@@ -70,6 +71,7 @@ using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 dbContext.Database.Migrate();
 await Seeder.SeederUser(dbContext, scope);
+await Seeder.SeedCard(dbContext, scope);
 
 app.UseHttpsRedirection();
 app.UseCors("AllowBlazorWasm");

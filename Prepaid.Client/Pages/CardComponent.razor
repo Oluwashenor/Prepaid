@@ -52,7 +52,7 @@
 
 
 @code {
-    [Parameter] public CardInfo Card { get; set; } = new();
+    [Parameter] public CardDTO Card { get; set; } = new();
     [Parameter] public EventCallback<bool> HideCardNumberEvent { get; set; }
     public string CardHashed { get; set; } = "**** **** **** 7852";
     [Parameter] public string? CardNumber { get; set; }

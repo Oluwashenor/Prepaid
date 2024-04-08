@@ -46,28 +46,34 @@
 
 
 @code {
-    public CardInfo Card { get; set; } = new();
+    public CardDTO Card { get; set; } = new();
     public BankDetail BankDetail { get; set; } = new();
     public string? CardNumber { get; set; }
     public bool CardNumberHidden { get; set; } = true;
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        Card = new()
+        var card = await apiClient.GetUserCard(1);
+        if (card.Status)
+        {
+            Card = new()
             {
-                Balance = 2205002,
-                CardNumber = "4521 5234 6234 7852",
-                CardType = "MasterCard",
-                Expires = DateTime.Now.AddYears(1),
-                Owner = "Oliver Johnson"
+                    Balance = 2205002,
+                    CardNumber = card.Data.CardNumber,
+                    CardType = card.Data.CardType,
+                    Expires = card.Data.Expires,
+                    Owner = card.Data.Owner
             };
-        CardNumber = Card.CardNumber;
-        BankDetail = new()
-            {
-                AccountName = Card.Owner,
-                AccountNumber = "10129203033",
-                Bank = "Providus"
-            };
-        HideCard(true);
+            CardNumber = Card.CardNumber;
+            BankDetail = new()
+                {
+                    AccountName = Card.Owner,
+                    AccountNumber = "10129203033",
+                    Bank = "Providus"
+                };
+            HideCard(true);
+        }
+        
+        
     }
 
     private void HandleLogin()

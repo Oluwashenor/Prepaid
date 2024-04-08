@@ -20,7 +20,7 @@ namespace Prepaid.API.Services.Implementations
             if (user == null) return new GeneralResponse(false, "Model is Empty");
             var appUser = await context.Users.FirstOrDefaultAsync(_ => _.PhoneNumber!.Trim()!.Equals(user.Phone!.Trim()));
             if (appUser is null) return new GeneralResponse(false, "User not found");
-
+            if (appUser.ClientId != user.ClientId) return new GeneralResponse(false, "Invalid Client Id");
             if (!BCrypt.Net.BCrypt.Verify(user.Password, appUser.Password))
                 return new GeneralResponse(false, "Email/Password not valid");
 

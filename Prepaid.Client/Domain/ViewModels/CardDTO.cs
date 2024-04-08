@@ -1,6 +1,6 @@
 ﻿namespace Prepaid.Client.Domain.ViewModels
 {
-    public class CardInfo
+    public class CardDTO
     {
         public string? CardNumber { get; set; }
         public DateTime Expires { get; set; }
